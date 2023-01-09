@@ -29,10 +29,10 @@ class _StoriesState extends State<Stories> {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
-      height: 100,
+      height: size.height * 0.09,
       decoration: const BoxDecoration(color: Colors.amber),
       child: Padding(
-        padding: const EdgeInsets.only(top: 40),
+        padding: const EdgeInsets.only(top: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -73,10 +73,10 @@ class _StoriesState extends State<Stories> {
   }
 
   Widget storiesWidget() {
-    return Expanded(
+    return const Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: Text(
               "Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş.Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş.Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmişSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş.Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş.Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş."),
         ),

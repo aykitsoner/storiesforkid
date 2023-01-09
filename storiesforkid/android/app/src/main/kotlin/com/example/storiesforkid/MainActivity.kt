@@ -1,4 +1,4 @@
-package com.example.storiesforkid
+package com.Soner.storiesforkid
 
 import io.flutter.embedding.android.FlutterActivity
 

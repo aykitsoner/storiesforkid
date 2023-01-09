@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:storiesforkid/Pages/stories.dart';
+import 'package:storiesforkid/constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +14,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -20,35 +29,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget mainWidget(double _w) {
     return animationGridViewWidged(_w);
-
-    // return InkWell(
-    //   onTap: () {
-    //     Navigator.push(
-    //         context, MaterialPageRoute(builder: (context) => const Stories()));
-    //   },
-    //   child: Center(
-    //     child: Container(
-    //       alignment: Alignment.center,
-    //       width: 200,
-    //       height: 200,
-    //       decoration: BoxDecoration(
-    //           borderRadius: BorderRadius.circular(1000), color: Colors.amber),
-    //       child: const Text(
-    //         'BAS BANA',
-    //         style: TextStyle(
-    //             fontSize: 30,
-    //             color: Colors.deepPurpleAccent,
-    //             fontWeight: FontWeight.bold),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
-  Widget animationGridViewWidged(_w) {
+  Widget animationGridViewWidged(double _w) {
     return AnimationLimiter(
       child: GridView.builder(
-        itemCount: 20,
+        itemCount: listMapData.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 20,
@@ -64,6 +50,8 @@ class _HomePageState extends State<HomePage> {
               child: FadeInAnimation(
                 child: InkWell(
                   onTap: () {
+                    selectedIndex = index;
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -73,19 +61,29 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: Container(
                     margin: EdgeInsets.only(
-                        bottom: _w / 30, left: _w / 60, right: _w / 60),
+                        bottom: _w / 30,
+                        left: _w / 60,
+                        right: _w / 60,
+                        top: 20),
                     decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.deepPurple),
                       color: Colors.deepPurple.withOpacity(0.5),
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.white,
                           blurRadius: 40,
                           spreadRadius: 10,
                         ),
                       ],
                     ),
-                    child: Center(child: Text("$index")),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        listMapData[index]['imageUrl'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -95,4 +93,27 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  adData() async {
+    final city = <String, String>{
+      "name": "Los dsadsdsadsa",
+      "state": "CA",
+      "country": "USA"
+    };
+    FirebaseFirestore.instance.collection("cities").doc().set(city);
+  }
+
+  getData() async {
+    QuerySnapshot querySnapshot = await querySnapshotFunc();
+    for (var element in querySnapshot.docs) {
+      print(element.data());
+      // mapData = element.data() as Map<String, dynamic>;
+      // listMapData.add(element.data() as Map<String, dynamic>);
+    }
+  }
+
+  Future<QuerySnapshot> querySnapshotFunc() =>
+      FirebaseFirestore.instance.collection('cities').get().then((value) {
+        return value;
+      });
 }

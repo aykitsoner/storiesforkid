@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "785124087615",
+    "project_id": "storiesforkid-32f93",
+    "storage_bucket": "storiesforkid-32f93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785124087615:android:da3acae67071705bd6258a",
+        "android_client_info": {
+          "package_name": "com.Soner.storiesforkid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "785124087615-g16aj8nvk052q3ch8cjgfeucqqltdqhk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRvkmTh8KVg1kp0IZpYFI_Gbly_pVD53Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "785124087615-g16aj8nvk052q3ch8cjgfeucqqltdqhk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

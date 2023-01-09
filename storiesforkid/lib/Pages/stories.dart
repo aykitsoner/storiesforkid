@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:storiesforkid/constants.dart';
 
 class Stories extends StatefulWidget {
   const Stories({super.key});
@@ -9,6 +11,11 @@ class Stories extends StatefulWidget {
 
 class _StoriesState extends State<Stories> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: mainWidget(),
@@ -21,6 +28,7 @@ class _StoriesState extends State<Stories> {
         headerWidget(),
         imageWidget(),
         storiesWidget(),
+        storiesDetailWidget(),
       ],
     );
   }
@@ -62,25 +70,36 @@ class _StoriesState extends State<Stories> {
   }
 
   Widget imageWidget() {
-    return Center(
-      child: Image.asset(
-        'assets/images/armut.jpg',
-        width: 300,
-        height: 300,
-        alignment: Alignment.center,
-      ),
+    return Image.network(
+      listMapData[selectedIndex]['imageUrl'],
+      width: 300,
+      height: 300,
     );
   }
 
   Widget storiesWidget() {
-    return const Expanded(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-              "Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş.Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş.Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmişSude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş.Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş.Sude ailesini asla üzmek istemeyen bir çocukmuş. Onların bu kadar üzülmesini istememiş ve derslerine asılmaya karar vermiş. Her gün düzenli bir şekilde ödevlerini yapmaya daha sonra da derslerini tekrar etmeye başlamış. Bu sayede okulda ki başarısı da yükselmiş."),
-        ),
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        listMapData[selectedIndex]['storyName'],
       ),
     );
   }
+
+  Widget storiesDetailWidget() {
+    return Text(listMapData[selectedIndex]['storyDetail']);
+  }
+
+  getStoryData() async {
+    QuerySnapshot querySnapshot = await querySnapshotStories();
+    for (var element in querySnapshot.docs) {
+      print(element.data());
+      listMapData.add(element.data() as Map<String, dynamic>);
+    }
+  }
+
+  Future<QuerySnapshot> querySnapshotStories() =>
+      FirebaseFirestore.instance.collection('stories').get().then((value) {
+        return value;
+      });
 }

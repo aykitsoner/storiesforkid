@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:storiesforkid/Pages/splashscreen.dart';
 import 'package:storiesforkid/Pages/stories.dart';
 import 'package:storiesforkid/constants.dart';
 
@@ -23,18 +24,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: mainWidget(_w),
-    );
-  }
-
-  Widget mainWidget(double _w) {
-    return animationGridViewWidged(_w);
-  }
-
-  Widget animationGridViewWidged(double _w) {
-    return Expanded(
-      child: AnimationLimiter(
-        child: Container(
+      body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -50,67 +40,73 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          child: GridView.builder(
-            itemCount: listMapData.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 5,
-              crossAxisSpacing: 10,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return AnimationConfiguration.staggeredGrid(
-                position: index,
-                columnCount: 2,
-                child: ScaleAnimation(
-                  duration: const Duration(milliseconds: 1500),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  child: FadeInAnimation(
-                    child: InkWell(
-                      onTap: () {
-                        selectedIndex = index;
+          child: mainWidget(_w)),
+    );
+  }
 
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Stories(),
-                            ));
-                        print("$index");
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            bottom: _w / 90,
-                            left: _w / 60,
-                            right: _w / 60,
-                            top: 20),
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(width: 2, color: Colors.deepPurple),
-                          color: Colors.deepPurple.withOpacity(0.5),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 40,
-                              spreadRadius: 10,
-                            ),
-                          ],
+  Widget mainWidget(double _w) {
+    return animationGridViewWidged(_w);
+  }
+
+  Widget animationGridViewWidged(double _w) {
+    return AnimationLimiter(
+      child: GridView.builder(
+        itemCount: listMapData.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 10,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return AnimationConfiguration.staggeredGrid(
+            position: index,
+            columnCount: 2,
+            child: ScaleAnimation(
+              duration: const Duration(milliseconds: 1500),
+              curve: Curves.fastLinearToSlowEaseIn,
+              child: FadeInAnimation(
+                child: InkWell(
+                  onTap: () {
+                    selectedIndex = index;
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Stories(),
+                        ));
+                    print("$index");
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        bottom: _w / 90,
+                        left: _w / 60,
+                        right: _w / 60,
+                        top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.deepPurple),
+                      color: Colors.deepPurple.withOpacity(0.5),
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.white,
+                          blurRadius: 40,
+                          spreadRadius: 10,
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            listMapData[index]['imageUrl'],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        listMapData[index]['imageUrl'],
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 ),
-              );
-            },
-          ),
-        ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -137,25 +133,6 @@ class _HomePageState extends State<HomePage> {
       FirebaseFirestore.instance.collection('cities').get().then((value) {
         return value;
       });
-  Widget backroundWidget() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.deepPurple.withOpacity(0.8),
-            Colors.purple.withOpacity(0.8),
-            Colors.blue.withOpacity(0.8),
-            Colors.green.withOpacity(0.8),
-            Colors.yellow.withOpacity(0.8),
-            Colors.orange.withOpacity(0.8),
-            Colors.red.withOpacity(0.8),
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget headerWidget() {
     Size size = MediaQuery.of(context).size;

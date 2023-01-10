@@ -2,10 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:storiesforkid/Pages/homepage.dart';
+import 'package:storiesforkid/Pages/splashscreen.dart';
 import 'package:storiesforkid/constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MaterialApp(
+    home: SplashScreen(),
+  ));
+  await Future.delayed(Duration(milliseconds: 5000));
   await Firebase.initializeApp();
   await getStoryData();
   runApp(const MaterialApp(

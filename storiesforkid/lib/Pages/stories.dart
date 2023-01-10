@@ -17,12 +17,13 @@ class _StoriesState extends State<Stories> {
   }
 
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: mainWidget(),
+      body: mainWidget(size),
     );
   }
 
-  Widget mainWidget() {
+  Widget mainWidget(Size size) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -42,8 +43,11 @@ class _StoriesState extends State<Stories> {
       child: Column(
         children: [
           headerWidget(),
-          imageWidget(),
-          storiesWidget(),
+          imageWidget(size),
+          //storiesWidget(),
+          SizedBox(
+            height: 15,
+          ),
           storiesDetailWidget(),
         ],
       ),
@@ -72,22 +76,20 @@ class _StoriesState extends State<Stories> {
                 child: Icon(
                   Icons.arrow_back_ios,
                   color: Color.fromARGB(255, 61, 18, 69),
-                  size: 30,
+                  size: 25,
                 ),
               ),
             ),
-            const Text(
-              "Hikaye",
+            Text(
+              listMapData[selectedIndex]['storyName'],
               style: TextStyle(
-                  color: Color.fromARGB(255, 61, 18, 69), fontSize: 30),
+                  fontFamily: 'Kalam',
+                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
+                  color: Color.fromARGB(255, 61, 18, 69)),
             ),
-            const Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.settings,
-                color: Color.fromARGB(255, 61, 18, 69),
-                size: 30,
-              ),
+            SizedBox(
+              width: 50,
             ),
           ],
         ),
@@ -95,25 +97,40 @@ class _StoriesState extends State<Stories> {
     );
   }
 
-  Widget imageWidget() {
+  Widget imageWidget(size) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(30),
+        bottomRight: Radius.circular(30),
+      )
           //border: Border.all(width: 2, color: Colors.deepPurple),
           ),
-      child: Image.network(
-        listMapData[selectedIndex]['imageUrl'],
-        width: 300,
-        height: 300,
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+        child: Image.network(
+          listMapData[selectedIndex]['imageUrl'],
+          fit: BoxFit.fill,
+          width: size.width,
+          height: 300,
+        ),
       ),
     );
   }
 
   Widget storiesWidget() {
     return Padding(
-      padding: EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Text(
         listMapData[selectedIndex]['storyName'],
-        style: const TextStyle(fontFamily: 'Kalam', fontSize: 20),
+        style: const TextStyle(
+          fontFamily: 'Kalam',
+          fontSize: 25,
+          fontWeight: FontWeight.w800,
+        ),
       ),
     );
   }
@@ -122,12 +139,12 @@ class _StoriesState extends State<Stories> {
     return Expanded(
       child: SingleChildScrollView(
           child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.only(left: 20, right: 20),
         child: Container(
           //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
           child: Text(
             listMapData[selectedIndex]['storyDetail'],
-            style: const TextStyle(fontFamily: 'Kalam'),
+            style: const TextStyle(fontFamily: 'Kalam', fontSize: 18),
           ),
         ),
       )),

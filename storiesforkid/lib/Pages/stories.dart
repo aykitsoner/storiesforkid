@@ -23,13 +23,30 @@ class _StoriesState extends State<Stories> {
   }
 
   Widget mainWidget() {
-    return Column(
-      children: [
-        headerWidget(),
-        imageWidget(),
-        storiesWidget(),
-        storiesDetailWidget(),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.deepPurple.withOpacity(0.8),
+            Colors.purple.withOpacity(0.8),
+            Colors.blue.withOpacity(0.8),
+            Colors.green.withOpacity(0.8),
+            Colors.yellow.withOpacity(0.8),
+            Colors.orange.withOpacity(0.8),
+            Colors.red.withOpacity(0.8),
+          ],
+        ),
+      ),
+      child: Column(
+        children: [
+          headerWidget(),
+          imageWidget(),
+          storiesWidget(),
+          storiesDetailWidget(),
+        ],
+      ),
     );
   }
 
@@ -38,7 +55,9 @@ class _StoriesState extends State<Stories> {
     return Container(
       width: size.width,
       height: size.height * 0.09,
-      decoration: const BoxDecoration(color: Colors.amber),
+      decoration: BoxDecoration(
+        color: Colors.purple.withOpacity(0.1),
+      ),
       child: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: Row(
@@ -48,20 +67,27 @@ class _StoriesState extends State<Stories> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.deepPurpleAccent,
-                size: 30,
+              child: const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: Color.fromARGB(255, 61, 18, 69),
+                  size: 30,
+                ),
               ),
             ),
             const Text(
-              "Uygulama",
-              style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 30),
+              "Hikaye",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 61, 18, 69), fontSize: 30),
             ),
-            const Icon(
-              Icons.settings,
-              color: Colors.deepPurpleAccent,
-              size: 30,
+            const Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(
+                Icons.settings,
+                color: Color.fromARGB(255, 61, 18, 69),
+                size: 30,
+              ),
             ),
           ],
         ),
@@ -70,24 +96,42 @@ class _StoriesState extends State<Stories> {
   }
 
   Widget imageWidget() {
-    return Image.network(
-      listMapData[selectedIndex]['imageUrl'],
-      width: 300,
-      height: 300,
+    return Container(
+      decoration: BoxDecoration(
+          //border: Border.all(width: 2, color: Colors.deepPurple),
+          ),
+      child: Image.network(
+        listMapData[selectedIndex]['imageUrl'],
+        width: 300,
+        height: 300,
+      ),
     );
   }
 
   Widget storiesWidget() {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(bottom: 20),
       child: Text(
         listMapData[selectedIndex]['storyName'],
+        style: const TextStyle(fontFamily: 'Kalam', fontSize: 20),
       ),
     );
   }
 
   Widget storiesDetailWidget() {
-    return Text(listMapData[selectedIndex]['storyDetail']);
+    return Expanded(
+      child: SingleChildScrollView(
+          child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Container(
+          //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+          child: Text(
+            listMapData[selectedIndex]['storyDetail'],
+            style: const TextStyle(fontFamily: 'Kalam'),
+          ),
+        ),
+      )),
+    );
   }
 
   getStoryData() async {

@@ -21,6 +21,6 @@ class _SplashScreenState extends State<SplashScreen> {
         child:
             // Load a Lottie file from a remote url
             Lottie.network(
-                'https://assets1.lottiefiles.com/packages/lf20_lodmufpp.json'));
+                'https://assets8.lottiefiles.com/packages/lf20_rzp5gdfi.json'));
   }
 }

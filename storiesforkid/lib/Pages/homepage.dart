@@ -94,11 +94,14 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        listMapData[index]['imageUrl'],
-                        fit: BoxFit.cover,
+                    child: Hero(
+                      tag: listMapData[index]['imageUrl'],
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          listMapData[index]['imageUrl'],
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),

@@ -98,24 +98,27 @@ class _StoriesState extends State<Stories> {
   }
 
   Widget imageWidget(size) {
-    return Container(
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(30),
-        bottomRight: Radius.circular(30),
-      )
-          //border: Border.all(width: 2, color: Colors.deepPurple),
+    return Hero(
+      tag: listMapData[selectedIndex]['imageUrl'],
+      child: Container(
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        )
+            //border: Border.all(width: 2, color: Colors.deepPurple),
+            ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
           ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-        child: Image.network(
-          listMapData[selectedIndex]['imageUrl'],
-          fit: BoxFit.contain,
-          width: size.width,
-          height: 300,
+          child: Image.network(
+            listMapData[selectedIndex]['imageUrl'],
+            fit: BoxFit.contain,
+            width: size.width,
+            height: 300,
+          ),
         ),
       ),
     );

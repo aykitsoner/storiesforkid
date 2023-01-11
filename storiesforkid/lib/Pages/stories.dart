@@ -107,13 +107,13 @@ class _StoriesState extends State<Stories> {
           //border: Border.all(width: 2, color: Colors.deepPurple),
           ),
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
         child: Image.network(
           listMapData[selectedIndex]['imageUrl'],
-          fit: BoxFit.fill,
+          fit: BoxFit.contain,
           width: size.width,
           height: 300,
         ),
